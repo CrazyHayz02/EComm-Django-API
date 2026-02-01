@@ -2,8 +2,8 @@ from rest_framework import serializers
 from .models import Order, OrderItem
 
 
-
 class OrderItemSerializer(serializers.ModelSerializer):
+    # Get product name from the related product
     product_name = serializers.CharField(source="product.name", read_only=True)
 
     class Meta:
@@ -23,8 +23,13 @@ class OrderItemSerializer(serializers.ModelSerializer):
         ]
 
 class OrderSerializer(serializers.ModelSerializer):
+
+    # Nested serialization for order items
     items = OrderItemSerializer(many=True, read_only=True)
+
     user = serializers.StringRelatedField(read_only=True)
+
+    # the total price is calculated and read-only
     total_price = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
 
     class Meta:

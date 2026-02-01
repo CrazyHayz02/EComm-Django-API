@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
-
+from dotenv import load_dotenv
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,13 +21,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
+load_dotenv()
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9km_=3o%h1cayyu$qh2w8+%05sbc-pv7&&hx#w8(3c_c6qta4$'
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = os.getenv("DEBUG") == "True"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "your-domain.com"
+]
 
 
 # Application definition
@@ -132,7 +138,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
     # Pagination settings
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -143,14 +149,26 @@ REST_FRAMEWORK = {
         "rest_framework.throttling.AnonRateThrottle",
         "rest_framework.throttling.UserRateThrottle",
     ],
+    # Throttling rates
     "DEFAULT_THROTTLE_RATES": {
         "anon": "10/min",
         "user": "100/min",
         "product_write": "15/min",
     },
+    # Filtering settings
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
         "rest_framework.filters.OrderingFilter",
     ],
+    # Schema settings
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
 }

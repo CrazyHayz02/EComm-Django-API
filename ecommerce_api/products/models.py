@@ -1,7 +1,7 @@
 from django.db import models
 
 
-# Create your models here.
+# Product model to represent items in the e-commerce platform
 class Product(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(default="")

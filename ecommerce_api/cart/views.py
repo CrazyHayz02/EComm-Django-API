@@ -6,13 +6,16 @@ from .serializers import CartSerializer
 from .services import add_to_cart, remove_from_cart
 
 class CartViewSet(viewsets.ViewSet):
+    # Only authenticated users can access the cart
     permission_classes = [permissions.IsAuthenticated]
 
+    # GET /cart/ - Retrieve the current user's cart
     def list(self, request):
         cart = Cart.objects.get(user=request.user)
         serializer = CartSerializer(cart)
         return Response(serializer.data)
 
+    # POST /cart/add/ - Add an item to the cart
     @action(detail=False, methods=['post'])
     def add(self, request):
         product_id = request.data.get('product_id')
@@ -20,6 +23,7 @@ class CartViewSet(viewsets.ViewSet):
         add_to_cart(request.user, product_id, quantity)
         return Response({'status': 'added'})
 
+    # POST /cart/remove/ - Remove an item from the cart
     @action(detail=False, methods=['post'])
     def remove(self, request):
         product_id = request.data.get('product_id')

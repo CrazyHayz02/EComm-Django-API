@@ -9,16 +9,16 @@ from .services import checkout_cart
 
 
 class OrderViewSet(viewsets.ViewSet):
-    """
-    Handles listing user orders and checkout flow.
-    """
+    # Only authenticated users can access orders
     permission_classes = [permissions.IsAuthenticated]
 
+    # GET /orders/ - Retrieve the current user's orders
     def list(self, request):
         orders = Order.objects.filter(user=request.user)
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
 
+    # POST /orders/checkout/ - Checkout the current user's cart
     @action(detail=False, methods=['post'])
     def checkout(self, request):
         try:

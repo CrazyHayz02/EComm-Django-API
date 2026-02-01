@@ -14,25 +14,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+# Import necessary modules
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
+# Import viewsets from the respective apps
 from products.views import ProductViewSet
 from orders.views import OrderViewSet
 from cart.views import CartViewSet
 
+# Create a router and register our viewsets with it
 router = DefaultRouter()
 router.register(r'products', ProductViewSet, basename='products')
 router.register(r'cart', CartViewSet, basename='cart')
 router.register(r'orders', OrderViewSet, basename='orders')
 
+# Import JWT views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
 
+# Define the URL patterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),

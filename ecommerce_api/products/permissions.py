@@ -1,5 +1,6 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
+# Custom permission to allow only admin users to edit, others can only read
 class IsAdminOrReadOnly(BasePermission):
     def has_permission(self, request, view):
         # SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS')

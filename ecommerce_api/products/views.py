@@ -7,7 +7,7 @@ from .permissions import IsAdminOrReadOnly
 from .throttles import ProductWriteThrottle
 
     
-
+# ViewSet for managing products
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

@@ -1,14 +1,22 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from .models import Product
 from .serializers import ProductSerializer
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from .permissions import IsAdminOrReadOnly
+from .throttles import ProductWriteThrottle
+
+    
 
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-    def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
-            return [AllowAny()]
-        return [IsAuthenticated()]
+    # Only admin users can create, update, or delete products
+    permission_classes = [IsAdminOrReadOnly]
+
+    # Throttle write operations to 5 per minute per user
+    throttle_classes = [ProductWriteThrottle]
+
+    filterset_fields = ["price", "stock"]
+    ordering_fields = ["price", "created_at"]

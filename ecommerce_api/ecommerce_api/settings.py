@@ -29,8 +29,7 @@ DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = [
     "localhost",
-    "127.0.0.1",
-    "your-domain.com"
+    "127.0.0.1"
 ]
 
 

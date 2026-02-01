@@ -297,8 +297,6 @@ This project demonstrates:
 * Defensive programming practices
 * Clean separation of concerns (service layer)
 
-These are **core competencies evaluated in Google SWE & Security Engineer interviews**.
-
 ---
 
 ## 📄 License

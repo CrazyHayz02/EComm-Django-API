@@ -132,8 +132,34 @@ Response:
 ```http
 POST /api/token/refresh/
 ```
+---
+
+## 📚 API Documentation (OpenAPI / Swagger)
+
+This API is fully documented using OpenAPI (Swagger) via `drf-spectacular`.
+
+### Interactive API Docs (Swagger UI)
+```http
+/api/docs/
+```
+
+- Browse all available endpoints
+- View request/response schemas
+- Test authenticated endpoints directly in the browser
+- JWT authentication supported via Swagger UI
+
+### OpenAPI Schema (JSON)
+``` http
+/api/schema/
+```
+- Machine-readable OpenAPI schema
+- Can be used for client generation, API gateways, or tooling
+
+The documentation is automatically generated from serializers,
+views, and permissions, ensuring it stays in sync with the codebase.
 
 ---
+
 
 ## 🛍️ Product API Endpoints
 

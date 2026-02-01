@@ -59,20 +59,44 @@ This project demonstrates real-world backend engineering practices, including au
 ## 📦 Project Structure
 
 ```text
-├── ecommerce_api/
-│ ├── ecommerce_api/
-│ │   ├── settings.py
-│ │   ├── urls.py
-│ │   └── wsgi.py
-│ ├── products/
-│ │   ├── models.py
-│ │   ├── serializers.py
-│ │   ├── views.py
-│ │   ├── permissions.py
-│ │   └── urls.py
-│ └── manage.py
-├── requirments.txt
-└── README.md
+└── 📁ecommerce_api
+    └── 📁cart
+        ├── __init__.py
+        ├── admin.py
+        ├── apps.py
+        ├── models.py
+        ├── serializers.py
+        ├── services.py
+        ├── tests.py
+        ├── views.py
+    └── 📁ecommerce_api
+        ├── __init__.py
+        ├── asgi.py
+        ├── settings.py
+        ├── urls.py
+        ├── wsgi.py
+    └── 📁orders
+        ├── __init__.py
+        ├── admin.py
+        ├── apps.py
+        ├── models.py
+        ├── serializers.py
+        ├── services.py
+        ├── tests.py
+        ├── views.py
+    └── 📁products
+        ├── __init__.py
+        ├── admin.py
+        ├── apps.py
+        ├── models.py
+        ├── permissions.py
+        ├── serializers.py
+        ├── tests.py
+        ├── throttles.py
+        ├── urls.py
+        ├── views.py
+    ├── db.sqlite3
+    └── manage.py
 ```
 
 ---
@@ -120,6 +144,88 @@ POST /api/token/refresh/
 | POST   | /api/products/      | Create product   | Admin  |
 | PUT    | /api/products/{id}/ | Update product   | Admin  |
 | DELETE | /api/products/{id}/ | Delete product   | Admin  |
+
+---
+
+## 🛒 Cart & Order API Endpoints
+
+| Method | Endpoint              | Description                  | Auth          |
+| ------ | --------------------- | ---------------------------- | ------------- |
+| GET    | /api/cart/            | Retrieve current user’s cart | Authenticated |
+| POST   | /api/cart/add/        | Add product to cart          | Authenticated |
+| DELETE | /api/cart/remove/     | Remove product from cart     | Authenticated |
+| POST   | /api/orders/checkout/ | Checkout cart → create order | Authenticated |
+| GET    | /api/orders/          | List user’s orders           | Authenticated |
+| GET    | /api/orders/{id}/     | Retrieve specific order      | Authenticated |
+
+### Request Example — Add to Cart
+
+```http
+POST /api/cart/add/
+Authorization: Bearer <access_token>
+Content-Type: application/json
+```
+
+```json
+{
+  "product_id": 5,
+  "quantity": 2
+}
+```
+
+### Response Example
+
+```json
+{
+  "cart_item_id": 12,
+  "product": {
+    "id": 5,
+    "name": "Gaming Laptop",
+    "price": 1999.99
+  },
+  "quantity": 2,
+  "total_price": 3999.98
+}
+```
+
+### Request Example — Checkout Cart
+
+```http
+POST /api/orders/checkout/
+Authorization: Bearer <access_token>
+```
+
+### Response Example
+
+```json
+{
+    "id": 4,
+    "user": "user",
+    "items": [
+        {
+            "id": 6,
+            "product": 7,
+            "product_name": "SolarCell Max",
+            "quantity": 20,
+            "price": "1099.00"
+        }
+    ],
+    "total_price": "21980.00",
+    "status": "PENDING",
+    "created_at": "2026-02-01T00:58:33.064621Z"
+```
+
+---
+
+## ⚙️ Service Layer & Business Logic
+
+All critical operations are implemented in a **service layer** (`services.py`) to separate business logic from views:
+
+* `add_to_cart(user, product_id, quantity)` — validates stock, updates cart, creates `CartItem`
+* `remove_from_cart(user, product_id)` — deletes item from cart
+* `checkout_cart(user)` — converts cart items to order, updates stock, clears cart, calculates total price
+
+> Demonstrates **clean architecture**, a skill Google evaluates in SWE interviews.
 
 ---
 
@@ -189,20 +295,9 @@ This project demonstrates:
 * Secure authentication & authorization
 * Scalable response handling
 * Defensive programming practices
+* Clean separation of concerns (service layer)
 
 These are **core competencies evaluated in Google SWE & Security Engineer interviews**.
-
----
-
-## 🔜 Next Steps (Planned)
-
-* Cart & Order models
-* Checkout flow
-* Automated tests (pytest)
-* Swagger / OpenAPI documentation
-* Dockerization
-* CI/CD pipeline
-* Cloud deployment (Google Cloud Run)
 
 ---
 

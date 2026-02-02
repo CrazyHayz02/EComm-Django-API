@@ -313,6 +313,11 @@ python manage.py runserver
 
 ---
 
+## Deployment
+This project is prepared for Docker-based deployment and CI/CD.
+
+---
+
 ## 🧠 Why This Project Matters
 
 This project demonstrates:

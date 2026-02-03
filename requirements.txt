@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿asgiref
+=======
+asgiref
+>>>>>>> a8c6054bd446e866284f1160104d0814b5164a28
 attrs
 Django
 django-filter

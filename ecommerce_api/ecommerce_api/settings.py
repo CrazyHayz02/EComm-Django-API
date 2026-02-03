@@ -24,13 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 
 # SECURITY WARNING: keep the secret key used in production secret!
-<<<<<<< HEAD
-SECRET_KEY = os.getenv("SECRET_KEY", "ci-test-secret")
-DEBUG = True
-=======
 SECRET_KEY = os.environ.get('SECRET_KEY', 'ci-secret-key')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
->>>>>>> 90859da2c43754a8f3dcc16cbdd442d86191c46c
 
 ALLOWED_HOSTS = [
     "localhost",

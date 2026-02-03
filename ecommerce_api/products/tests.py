@@ -1,6 +1,8 @@
 from django.test import TestCase
-from .models import Product, Cart
-from ..cart.services import add_to_cart
+from cart.models import Cart
+from django.contrib.auth.models import User
+from .models import Product
+from cart.services import add_to_cart
 
 class CartTests(TestCase):
     def setUp(self):

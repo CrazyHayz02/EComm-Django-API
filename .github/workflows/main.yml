@@ -12,7 +12,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.8, 3.9, 3.11]
+        python-version: [3.8, 3.9, 3.10, 3.11]
 
     steps:
     - uses: actions/checkout@v4
@@ -28,6 +28,6 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run Tests
-      working-directory: ./EComm-Django-API/ecommerce_api
+      working-directory: ./ecommerce_api
       run: |
         python manage.py test

@@ -4,6 +4,9 @@ A production-style **E-commerce REST API** built with **Django** and **Django RE
 This project demonstrates real-world backend engineering practices, including authentication, permissions, rate limiting, pagination, and clean API design.
 
 ---
+## 🔗 Live URL
+**API Live URL:** [https://your-app-name.onrender.com](https://your-app-name.onrender.com)
+---
 
 ## 🚀 Features (Implemented So Far)
 
@@ -55,6 +58,13 @@ This project demonstrates real-world backend engineering practices, including au
 * **Postman** (API testing)
 
 ---
+
+## 📦 Docker Deployment
+
+```bash
+docker build -t e-commerce-api .
+docker run -p 8000:8000 e-commerce-api
+```
 
 ## 📦 Project Structure
 

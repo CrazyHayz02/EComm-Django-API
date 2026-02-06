@@ -5,12 +5,12 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY ./requirements.txt /app/requirements.txt
 
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install -r /app/requirements.txt
 
-COPY . .
+COPY . /app
 
 RUN python manage.py collectstatic --noinput
 

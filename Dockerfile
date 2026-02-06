@@ -13,7 +13,8 @@ RUN pip install --upgrade pip && pip install -r /app/requirements.txt
 COPY ecommerce_api /app
 
 # Collect static files
-RUN python manage.py collectstatic --noinput
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
 # Run server
-CMD ["python", "entrypoint.py"]
+ENTRYPOINT ["./entrypoint.sh"]

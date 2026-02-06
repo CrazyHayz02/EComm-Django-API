@@ -5,7 +5,7 @@ This project demonstrates real-world backend engineering practices, including au
 
 ---
 ## 🔗 Live URL
-**API Live URL:** [https://your-app-name.onrender.com](https://your-app-name.onrender.com)
+**API Live URL:** [https://ecomm-django-api.onrender.com/](https://ecomm-django-api.onrender.com/)
 ---
 
 ## 🚀 Features (Implemented So Far)

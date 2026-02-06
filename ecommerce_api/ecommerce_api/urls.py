@@ -18,6 +18,7 @@ Including another URLconf
 # Import necessary modules
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
@@ -32,6 +33,9 @@ router.register(r'products', ProductViewSet, basename='products')
 router.register(r'cart', CartViewSet, basename='cart')
 router.register(r'orders', OrderViewSet, basename='orders')
 
+def redirect_to_api(request):
+    return redirect('/api/')
+
 # Import JWT views
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -40,6 +44,7 @@ from rest_framework_simplejwt.views import (
 
 # Define the URL patterns
 urlpatterns = [
+    path('', redirect_to_api),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

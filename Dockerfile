@@ -1,5 +1,8 @@
 FROM python:3.11-slim
 
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
 # Copy the requirements from ecommerce_api folder
@@ -13,4 +16,4 @@ COPY ecommerce_api /app
 RUN python manage.py collectstatic --noinput
 
 # Run server
-CMD gunicorn ecommerce_api.wsgi:application --bind 0.0.0.0:8000
+CMD ["python", "entrypoint.py"]

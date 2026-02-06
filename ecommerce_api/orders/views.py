@@ -11,6 +11,7 @@ from .services import checkout_cart
 class OrderViewSet(viewsets.ViewSet):
     # Only authenticated users can access orders
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = OrderSerializer
 
     # GET /orders/ - Retrieve the current user's orders
     def list(self, request):

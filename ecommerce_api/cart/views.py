@@ -8,6 +8,7 @@ from .services import add_to_cart, remove_from_cart
 class CartViewSet(viewsets.ViewSet):
     # Only authenticated users can access the cart
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = CartSerializer
 
     # GET /cart/ - Retrieve the current user's cart
     def list(self, request):

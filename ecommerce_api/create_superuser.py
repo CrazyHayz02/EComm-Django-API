@@ -12,3 +12,7 @@ if not User.objects.filter(username="admin").exists():
     print("Superuser created")
 else:
     print("Superuser already exists")
+
+
+print("DATABASE ENGINE:", DATABASES["default"]["ENGINE"])
+print("DATABASE NAME:", DATABASES["default"]["NAME"])

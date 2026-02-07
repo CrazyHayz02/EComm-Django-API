@@ -33,7 +33,6 @@ ALLOWED_HOSTS = os.environ.get(
 ).split(",")
 
 # Database
-DATABASE_URL = os.environ.get("DATABASE_URL")
 
 DATABASES = {
     "default": dj_database_url.config(

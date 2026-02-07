@@ -1,6 +1,9 @@
 #!/bin/sh
-set -e
+set -e  # Exit immediately on error
 
+# ------------------------------
+# Wait for database to be ready
+# ------------------------------
 echo "Waiting for database..."
 counter=0
 until python manage.py migrate --check >/dev/null 2>&1 || [ $counter -eq 10 ]; do
@@ -13,14 +16,27 @@ if [ $counter -eq 10 ]; then
   exit 1
 fi
 
+# ------------------------------
+# Apply migrations
+# ------------------------------
 echo "Applying migrations..."
 python manage.py migrate --noinput
 
+# ------------------------------
+# Collect static files
+# ------------------------------
 echo "Collecting static files..."
 python manage.py collectstatic --noinput || true
 
-echo "Creating superuser if not exists..."
+# ------------------------------
+# Create superuser if not exists
+# ------------------------------
+echo "Creating superuser if it doesn't exist..."
 python create_superuser.py || true
 
-echo "Starting Gunicorn..."
-exec gunicorn ecommerce_api.wsgi:application --bind 0.0.0.0:8000 --workers 3
+# ------------------------------
+# Start Gunicorn on Render port
+# ------------------------------
+PORT=${PORT:-8000}  # fallback if PORT not set
+echo "Starting Gunicorn on port $PORT..."
+exec gunicorn ecommerce_api.wsgi:application --bind 0.0.0.0:$PORT --workers 3

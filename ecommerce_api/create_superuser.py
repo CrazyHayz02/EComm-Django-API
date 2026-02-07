@@ -2,7 +2,9 @@ import os
 import django
 from django.contrib.auth import get_user_model
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "yourproject.settings")
+
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ecommerce_api.settings")
 django.setup()
 
 User = get_user_model()
@@ -13,6 +15,3 @@ if not User.objects.filter(username="admin").exists():
 else:
     print("Superuser already exists")
 
-
-print("DATABASE ENGINE:", DATABASES["default"]["ENGINE"])
-print("DATABASE NAME:", DATABASES["default"]["NAME"])

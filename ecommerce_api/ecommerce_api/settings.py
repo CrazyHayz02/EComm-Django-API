@@ -33,7 +33,6 @@ ALLOWED_HOSTS = os.environ.get(
 ).split(",")
 
 # Database
-DATABASE_URL = os.environ.get("DATABASE_URL")
 
 DATABASES = {
     "default": dj_database_url.config(
@@ -42,6 +41,8 @@ DATABASES = {
         ssl_require=True
     )
 }
+
+print("DATABASE CONFIG:", DATABASES["default"]["ENGINE"], DATABASES["default"]["NAME"])
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"

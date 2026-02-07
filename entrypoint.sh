@@ -5,7 +5,6 @@ set -e  # Exit immediately on error
 # Apply migrations
 # ------------------------------
 echo "Applying migrations..."
-python manage.py makemigrations --noinput
 python manage.py migrate --noinput
 
 # ------------------------------

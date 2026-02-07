@@ -23,8 +23,7 @@ python manage.py collectstatic --noinput
 echo "Creating superuser if not exists..."
 python create_superuser.py
 
-print("DATABASE ENGINE:", DATABASES["default"]["ENGINE"])
-print("DATABASE NAME:", DATABASES["default"]["NAME"])
+
 
 # Start Gunicorn
 echo "Starting Gunicorn..."

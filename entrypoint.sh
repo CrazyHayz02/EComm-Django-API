@@ -5,7 +5,7 @@ set -e  # Exit immediately on error
 # Apply migrations
 # ------------------------------
 echo "Applying migrations..."
-python manage.py migrate --noinput
+python manage.py migrate --plan
 
 # ------------------------------
 # Collect static files

@@ -2,6 +2,12 @@
 set -e  # Exit immediately on error
 
 # ------------------------------
+# Apply migrations
+# ------------------------------
+echo "Applying migrations..."
+python manage.py migrate --noinput
+
+# ------------------------------
 # Collect static files
 # ------------------------------
 echo "Collecting static files..."

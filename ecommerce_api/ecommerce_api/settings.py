@@ -21,10 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Database
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True
-    )
+        default=os.environ.get('DATABASE_URL')
+        )
 }
 
 # Quick-start development settings - unsuitable for production

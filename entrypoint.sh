@@ -1,7 +1,6 @@
 #!/bin/sh
 set -e
 
-# Wait for Postgres
 echo "Waiting for database..."
 counter=0
 until python manage.py migrate --check >/dev/null 2>&1 || [ $counter -eq 10 ]; do
@@ -14,13 +13,16 @@ if [ $counter -eq 10 ]; then
   exit 1
 fi
 
-# Run migrations safely
 echo "Applying migrations..."
 python manage.py migrate --noinput
 
-# Create superuser after DB is ready
-python create_superuser.py
+echo "Collecting static files..."
+python manage.py collectstatic --noinput || true
 
-# Start Gunicorn
+echo "Creating superuser if not exists..."
+python create_superuser.py || true
+
+# Bind to Render port dynamically
 PORT=${PORT:-8000}
+echo "Starting Gunicorn on port $PORT..."
 exec gunicorn ecommerce_api.wsgi:application --bind 0.0.0.0:$PORT --workers 3

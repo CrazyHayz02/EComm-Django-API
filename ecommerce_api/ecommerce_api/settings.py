@@ -28,9 +28,7 @@ load_dotenv()
 SECRET_KEY = os.environ.get('SECRET_KEY', 'ci-secret-key')
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.environ.get(
-    "ALLOWED_HOSTS", "localhost,127.0.0.1"
-).split(",")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",")
 
 # Database
 
@@ -46,9 +44,7 @@ print("DATABASE CONFIG:", DATABASES["default"]["ENGINE"], DATABASES["default"]["
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 
 # Use in-memory database for tests to speed up test runs

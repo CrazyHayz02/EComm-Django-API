@@ -26,6 +26,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
-    working-directory: ./EComm-Django-API/ecommerce_api
+      working-directory: ./EComm-Django-API/ecommerce_api
       run: |
         python manage.py test
